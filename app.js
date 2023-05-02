@@ -1,0 +1,15 @@
+const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
+const path = require("path");
+const app = express();
+const bodyParser = require("body-parser");
+const place_routes = require("./routes/place_routes");
+const user_routes = require("./routes/user_routes");
+app.use(cors());
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
+require("./db/db").connect();
+app.use(bodyParser.json());
+app.use("/api/places", place_routes);
+app.use("/api/user", user_routes);
+app.listen(4000);
